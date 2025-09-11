@@ -1,0 +1,68 @@
+# ---- Python bytecode/cache ----
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ---- C extensions ----
+*.so
+
+# ---- Distribution / packaging ----
+.build/
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+MANIFEST
+
+# ---- Virtual environments ----
+.venv/
+venv/
+ENV/
+env/
+.envrc
+.python-version
+
+# ---- Environment & secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Logs & runtime artifacts ----
+*.log
+logs/
+**/fixes/*.patch
+fixes/*.patch
+sample_app/fixes/*.patch
+
+# ---- Caches / tooling ----
+.cache/
+.mypy_cache/
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.dmypy.json
+
+# ---- Notebooks ----
+.ipynb_checkpoints/
+
+# ---- Editors / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ---- Project specific caches ----
+**/summarizer/cache/
+**/cache/
+.cache_groq/
+.cache_openai/
+
+# ---- Misc ----
+Thumbs.db
+
+# (Note) Deliberately NOT ignoring *.jsonl because repository includes sample/test log data.

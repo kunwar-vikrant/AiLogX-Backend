@@ -1,0 +1,5 @@
+{"timestamp": "2025-07-10T10:00:00Z", "level": "info", "message": "Heartbeat ping", "context_id": "req-1"}
+{"timestamp": "2025-07-10T10:00:01Z", "level": "decision_point", "message": "Routing to backup node", "reason": "Node overload", "context_id": "req-1"}
+{"timestamp": "2025-07-10T10:00:02Z", "level": "error_reasoning", "message": "Auth failure", "reason": "Invalid password", "context_id": "req-1"}
+{"timestamp": "2025-07-10T10:00:03Z", "level": "function_exit_error", "message": "Payment failed", "reason": "timeout", "context_id": "req-2"}
+{"timestamp": "2025-07-10T10:00:04Z", "level": "info", "message": "User redirected to homepage", "context_id": "req-2"}
