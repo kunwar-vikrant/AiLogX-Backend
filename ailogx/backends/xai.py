@@ -1,12 +1,16 @@
-# ailogx/backends/groq.py
+# ailogx/backends/xai.py
 import os
-from groq import Groq
+import openai
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# xAI uses OpenAI-compatible API
+client = openai.OpenAI(
+    api_key=os.getenv("XAI_API_KEY"),
+    base_url="https://api.x.ai/v1"
+)
 
 class Model:
     def __init__(self):
-        self.model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")  # Supports: llama-3.3-70b-versatile, llama-3.1-70b-versatile, mixtral-8x7b-32768, gemma2-9b-it
+        self.model = os.getenv("XAI_MODEL", "grok-beta")  # Supports: grok-beta, grok-vision-beta
 
     def summarize_logs(self, text: str) -> str:
         return self._call_llm(self._get_summarizer_prompt(), text)
@@ -54,7 +58,7 @@ Analyze deeply nested JSON logs and produce a precise summary broken into the fo
 
 🛠️ Actionable Fix Suggestions:
 - Group by file + function name.
-- Write assertive, precise dev tasks (e.g., \"Fix reserved username check in auth.py:signup_user\").
+- Write assertive, precise dev tasks (e.g., "Fix reserved username check in auth.py:signup_user").
 
 Keep your response concise and optimized for developer time savings.
 """

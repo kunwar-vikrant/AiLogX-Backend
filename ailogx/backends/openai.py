@@ -5,7 +5,7 @@ client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class Model:
     def __init__(self):
-        self.model = os.getenv("OPENAI_MODEL", "gpt-4o")
+        self.model = os.getenv("OPENAI_MODEL", "gpt-4o")  # Supports: gpt-4o, gpt-4o-mini, gpt-4-turbo, o1-preview, o1-mini
 
     def summarize_logs(self, text: str) -> str:
         return self._call_llm(self._get_summarizer_prompt(), text)

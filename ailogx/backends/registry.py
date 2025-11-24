@@ -17,5 +17,13 @@ def get_analyzer():
         from ailogx.backends import ollama
         return ollama.Model()
 
+    elif backend == "anthropic" or backend == "claude":
+        from ailogx.backends import anthropic
+        return anthropic.Model()
+
+    elif backend == "xai" or backend == "grok":
+        from ailogx.backends import xai
+        return xai.Model()
+
     else:
         raise ValueError(f"Unsupported LLM backend: {backend}")

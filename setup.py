@@ -17,6 +17,7 @@ setup(
         "groq",
         "openai",
         "ollama",
+        "anthropic",
         "transformers",
     ],
     entry_points={

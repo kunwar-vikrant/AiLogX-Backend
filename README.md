@@ -1,6 +1,6 @@
-# 🧠 LLM Logger
+# 🧠 AILogX
 
-**LLM Logger** is a Python logging framework designed for seamless integration with **Large Language Models (LLMs)**.  
+**AILogX** is a Python logging framework designed for seamless integration with **Large Language Models (LLMs)**.  
 It produces structured, LLM-friendly logs that can be easily summarized or reasoned about — even across massive, deeply nested codebases.
 
 ---
@@ -13,7 +13,9 @@ It produces structured, LLM-friendly logs that can be easily summarized or reaso
 - 🔌 **Modular LLM backend** support via environment variable:
   - `Ollama` (local models)
   - `Groq` (LLama, Gemma via API)
-  - `OpenAI` (GPT-3.5 / GPT-4)
+  - `OpenAI` (GPT-4o, GPT-4, etc.)
+  - `Anthropic` (Claude 3.5 Sonnet, Claude 3 Opus, etc.)
+  - `xAI` (Grok)
 - 📊 **Summarization CLI** with smart filtering and token-aware chunking
 - 💾 **Cache** for LLM calls with expiration/cleanup
 - 🧪 **Test harness** to simulate deeply nested logs
@@ -63,24 +65,34 @@ Supports:
 - `LLM_LOGGER_BACKEND=ollama` (default)
 - `LLM_LOGGER_BACKEND=groq`
 - `LLM_LOGGER_BACKEND=openai`
+- `LLM_LOGGER_BACKEND=anthropic` (or `claude`)
+- `LLM_LOGGER_BACKEND=xai` (or `grok`)
 
 ### 🧾 Example
 
 ```bash
-export LLM_LOGGER_BACKEND=groq  # or 'openai', 'ollama'
+export LLM_LOGGER_BACKEND=groq  # or 'openai', 'ollama', 'anthropic', 'xai'
 export GROQ_API_KEY="your-groq-api-key"
 - You must have a Groq account.
-- Supported models: gemma3, llama3-70b, etc.
+- Supported models: llama-3.3-70b-versatile, llama-3.1-70b-versatile, mixtral-8x7b-32768, gemma2-9b-it
 
 export OPENAI_API_KEY="your-openai-api-key"
-- You must have an OpenAI API key.Models like gpt-3.5-turbo, gpt-4, etc. are supported.
+- You must have an OpenAI API key. Models like gpt-4o, gpt-4o-mini, gpt-4-turbo, o1-preview, o1-mini are supported.
+
+export ANTHROPIC_API_KEY="your-anthropic-api-key"
+- You must have an Anthropic account. Models like claude-3-5-sonnet-20241022, claude-3-5-haiku-20241022, claude-3-opus-20240229 are supported.
+
+export XAI_API_KEY="your-xai-api-key"
+- You must have an xAI account. Models like grok-beta, grok-vision-beta are supported.
 
 For selecting Models : 
-| Backend  | Env Var to Set | Example Value         |
-|----------|----------------|-----------------------|
-| groq     | GROQ_MODEL     | llama-3-70b-8192      |
-| openai   | OPENAI_MODEL   | gpt-4o                |
-| ollama   | OLLAMA_MODEL   | llama3                |
+| Backend    | Env Var to Set    | Example Value              | Latest Models Available                                    |
+|------------|-------------------|----------------------------|-------------------------------------------------------------|
+| groq       | GROQ_MODEL        | llama-3.3-70b-versatile    | llama-3.3-70b-versatile, llama-3.1-70b-versatile, mixtral-8x7b-32768, gemma2-9b-it |
+| openai     | OPENAI_MODEL      | gpt-4o                     | gpt-4o, gpt-4o-mini, gpt-4-turbo, o1-preview, o1-mini      |
+| ollama     | OLLAMA_MODEL      | llama3.2                   | llama3.2, llama3.1, qwen2.5, gemma2, mistral               |
+| anthropic  | ANTHROPIC_MODEL   | claude-3-5-sonnet-20241022 | claude-3-5-sonnet-20241022, claude-3-5-haiku-20241022, claude-3-opus-20240229 |
+| xai        | XAI_MODEL         | grok-beta                  | grok-beta, grok-vision-beta                                |
 
 python -m ailogx.summarize simulated_logs/deep_nested_logs.jsonl --filter=smart --fast
 

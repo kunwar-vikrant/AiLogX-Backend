@@ -1,12 +1,12 @@
-# ailogx/backends/groq.py
+# ailogx/backends/anthropic.py
 import os
-from groq import Groq
+from anthropic import Anthropic
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 class Model:
     def __init__(self):
-        self.model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")  # Supports: llama-3.3-70b-versatile, llama-3.1-70b-versatile, mixtral-8x7b-32768, gemma2-9b-it
+        self.model = os.getenv("ANTHROPIC_MODEL", "claude-3-5-sonnet-20241022")  # Supports: claude-3-5-sonnet-20241022, claude-3-5-haiku-20241022, claude-3-opus-20240229
 
     def summarize_logs(self, text: str) -> str:
         return self._call_llm(self._get_summarizer_prompt(), text)
@@ -15,30 +15,29 @@ class Model:
         return self._call_llm(self._get_repair_prompt(), prompt)
     
     def suggest_response(self, prompt: str) -> str:
-        response = client.chat.completions.create(
+        response = client.messages.create(
             model=self.model,
+            max_tokens=4096,
+            system="You are a log Q&A assistant. Help users answer questions from logs.\nStructure your response clearly:\n✓ Summary\n📊 Key Metrics\n🔍 Root Cause\n💡 Suggestion",
             messages=[
-                {"role": "system", "content": (
-                    "You are a log Q&A assistant. Help users answer questions from logs.\n"
-                    "Structure your response clearly:\n✓ Summary\n📊 Key Metrics\n🔍 Root Cause\n💡 Suggestion"
-                )},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.3,
         )
-        return response.choices[0].message.content
+        return response.content[0].text
 
 
     def _call_llm(self, system_prompt, user_input) -> str:
-        response = client.chat.completions.create(
+        response = client.messages.create(
             model=self.model,
+            max_tokens=4096,
+            system=system_prompt,
             messages=[
-                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_input}
             ],
             temperature=0.3,
         )
-        return response.choices[0].message.content
+        return response.content[0].text
 
     def _get_summarizer_prompt(self) -> str:
         return """You are a senior LLM log summarizer that converts structured logs into a developer task list.
@@ -54,7 +53,7 @@ Analyze deeply nested JSON logs and produce a precise summary broken into the fo
 
 🛠️ Actionable Fix Suggestions:
 - Group by file + function name.
-- Write assertive, precise dev tasks (e.g., \"Fix reserved username check in auth.py:signup_user\").
+- Write assertive, precise dev tasks (e.g., "Fix reserved username check in auth.py:signup_user").
 
 Keep your response concise and optimized for developer time savings.
 """

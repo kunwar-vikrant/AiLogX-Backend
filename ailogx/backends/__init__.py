@@ -8,6 +8,10 @@ def get_analyzer():
         from .openai import analyze
     elif backend == "ollama":
         from .ollama import analyze
+    elif backend == "anthropic" or backend == "claude":
+        from .anthropic import analyze
+    elif backend == "xai" or backend == "grok":
+        from .xai import analyze
     else:
         raise ValueError(f"Unsupported LLM_LOGGER_BACKEND: {backend}")
     return analyze

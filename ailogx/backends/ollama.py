@@ -6,7 +6,7 @@ client = Client(host='http://localhost:11434')
 
 class Model:
     def __init__(self):
-        self.model = os.getenv("OLLAMA_MODEL", "llama3")
+        self.model = os.getenv("OLLAMA_MODEL", "llama3.2")  # Supports: llama3.2, llama3.1, qwen2.5, gemma2, mistral
 
     def summarize_logs(self, text: str) -> str:
         return self._call_llm(self._get_summarizer_prompt(), text)
