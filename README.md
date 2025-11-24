@@ -1,6 +1,6 @@
-# 🧠 LLM Logger
+# 🧠 AILogX
 
-**LLM Logger** is a Python logging framework designed for seamless integration with **Large Language Models (LLMs)**.  
+**AILogX** is a Python logging framework designed for seamless integration with **Large Language Models (LLMs)**.  
 It produces structured, LLM-friendly logs that can be easily summarized or reasoned about — even across massive, deeply nested codebases.
 
 ---
