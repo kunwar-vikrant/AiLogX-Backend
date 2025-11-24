@@ -13,7 +13,7 @@ It produces structured, LLM-friendly logs that can be easily summarized or reaso
 - 🔌 **Modular LLM backend** support via environment variable:
   - `Ollama` (local models)
   - `Groq` (LLama, Gemma via API)
-  - `OpenAI` (GPT-3.5 / GPT-4)
+  - `OpenAI` 
 - 📊 **Summarization CLI** with smart filtering and token-aware chunking
 - 💾 **Cache** for LLM calls with expiration/cleanup
 - 🧪 **Test harness** to simulate deeply nested logs
